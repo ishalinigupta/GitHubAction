@@ -1,6 +1,15 @@
-steps:
-    - uses: actions/checkout@v1
-    - name: npm install and build webpack
-    run: |
-        npm install
-        npm run build
+name: CI
+on: push
+jobs:
+  prod-check:
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    steps:    
+  # Reference a specific commit
+      - uses: actions/setup-node@c46424eee26de4078d34105d3de3cc4992202b1e
+  # Reference the major version of a release
+      - uses: actions/setup-node@v1
+  # Reference a minor version of a release
+      - uses: actions/setup-node@v1.2
+  # Reference a branch
+      - uses: actions/setup-node@main
