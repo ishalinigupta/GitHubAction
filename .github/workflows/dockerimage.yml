@@ -1,26 +1,18 @@
-name: ci
+name: Docker Image CI
 
 on:
   push:
-    branches:
-      - 'master'
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
 
 jobs:
-  docker:
+
+  build:
+
     runs-on: ubuntu-latest
+
     steps:
-      -
-        name: Creating an image
-        run: docker build . -t ${{ secrets.DOCKERHUB_USERNAME }}/nodeimage -f ../../Dockerfile .
-      -
-        name: Running Image on Particular port
-        run: docker run -p 3000:3000 -d ${{ secrets.DOCKERHUB_USERNAME }}/nodeimage
-      -
-        name: Login to DockerHub
-        uses: docker/login-action@v1 
-        with:
-          username: ${{ secrets.DOCKERHUB_USERNAME }}
-          password: ${{ secrets.DOCKERHUB_TOKEN }}
-      -
-        name: Build and push
-        run: docker push ${{ secrets.DOCKERHUB_USERNAME }}/nodeimage
+    - uses: actions/checkout@v2
+    - name: Build the Docker image
+      run: docker build . --file Dockerfile --tag ${{ secrets.DOCKERHUB_USERNAME }}:$(date +%s)
