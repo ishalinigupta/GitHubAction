@@ -16,12 +16,12 @@ jobs:
     - uses: actions/checkout@v2
     - name: Build the Docker image
       run: docker build . --file Dockerfile --tag ${{ secrets.DOCKERHUB_USERNAME }}:$(date +%s)
-    - name: Running a Docker Image
-      run: docker run -p 3000:3000 -d ${{ secrets.DOCKERHUB_USERNAME }}:$(date +%s)
     - name: Login to DockerHub
       run: docker login
       env:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
+    - name: Running a Docker Image
+      run: docker run -p 3000:3000 -d ${{ secrets.DOCKERHUB_USERNAME }}:$(date +%s)
     - name: Pushing Docker Image to DockerHub
       run: docker push ${{ secrets.DOCKERHUB_USERNAME }}:$(date +%s)
