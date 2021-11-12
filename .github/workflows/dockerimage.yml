@@ -11,7 +11,7 @@ jobs:
     steps:
       -
         name: Creating an image
-        run: docker build . -t ${{ secrets.DOCKERHUB_USERNAME }}/nodeimage
+        run: docker build . -t ${{ secrets.DOCKERHUB_USERNAME }}/nodeimage -f ../../Dockerfile .
       -
         name: Running Image on Particular port
         run: docker run -p 3000:3000 -d ${{ secrets.DOCKERHUB_USERNAME }}/nodeimage
