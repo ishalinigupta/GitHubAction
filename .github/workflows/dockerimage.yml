@@ -18,12 +18,15 @@ jobs:
       run: docker build . --file Dockerfile --tag ${{ secrets.DOCKERHUB_USERNAME }}:$(date +%s)
     - name: Images present
       run: docker images
+    - name: Running a Docker Image
+      run: docker run -p 3000:3000 -d $(date +%s)
+    - name: Containers present
+      run: docker ps -a
     - name: Login to DockerHub
       run: docker login
       env:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
     - name: Pushing Docker Image to DockerHub
-      run: docker push ${{ secrets.DOCKERHUB_USERNAME }}:$(date +%s)
-    #- name: Running a Docker Image
-    #  run: docker run -p 3000:3000 -d ${{ secrets.DOCKERHUB_USERNAME }}:$(date +%s)
+      run: docker push $(date +%s)
+    
