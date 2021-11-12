@@ -10,11 +10,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       -
-        name: Set up QEMU
-        uses: docker/setup-qemu-action@v1
+        name: Creating an image
+        run: docker build . -t ${{ secrets.DOCKERHUB_USERNAME }}/nodeimage
       -
-        name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v1
+        name: Running Image on Particular port
+        run: docker run -p 3000:3000 -d ${{ secrets.DOCKERHUB_USERNAME }}/nodeimage
       -
         name: Login to DockerHub
         uses: docker/login-action@v1 
@@ -23,8 +23,4 @@ jobs:
           password: ${{ secrets.DOCKERHUB_TOKEN }}
       -
         name: Build and push
-        id: docker_build
-        uses: docker/build-push-action@v2
-        with:
-          push: true
-          tags: user/app:latest
+        run: docker push ${{ secrets.DOCKERHUB_USERNAME }}/nodeimage
