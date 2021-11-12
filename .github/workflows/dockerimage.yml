@@ -28,5 +28,5 @@ jobs:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
     - name: Pushing Docker Image to DockerHub
-      run: docker push ${{ secrets.DOCKERHUB_USERNAME }}/myimage
+      run: docker push ${{ secrets.DOCKERHUB_USERNAME }}/${{ secrets.DOCKERHUB_USERNAME }}/myimage
     
