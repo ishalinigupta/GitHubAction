@@ -19,7 +19,7 @@ jobs:
     - name: Images present
       run: docker images
     - name: Running a Docker Image
-      run: docker run -p 3000:3000 -d $(date +%s)
+      run: docker run -p 3000:3000 -d ${{ secrets.DOCKERHUB_USERNAME }}
     - name: Containers present
       run: docker ps -a
     - name: Login to DockerHub
@@ -28,5 +28,5 @@ jobs:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
     - name: Pushing Docker Image to DockerHub
-      run: docker push $(date +%s)
+      run: docker push ${{ secrets.DOCKERHUB_USERNAME }}
     
