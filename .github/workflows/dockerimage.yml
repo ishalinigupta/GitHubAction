@@ -27,7 +27,7 @@ jobs:
     - name: Pushing Docker Image to DockerHub
       run: docker push ${{ secrets.DOCKERHUB_USERNAME }}/myimage
     - name: Creating Object
-      run: kubectl apply -f deploymentservice.yml
+      run: kubectl apply -f deployment.yml
     - name: Checking Deployment
       run: kubectl get deployment
 
