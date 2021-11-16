@@ -31,6 +31,8 @@ jobs:
       with:
         name: myartifact
         path: ${{ github.workspace }}
+    - name: Setup Port
+      run: kubectl proxy --port=8080
     - name: Creating Object
       run: kubectl apply -f deployment.yml
     - name: Checking Deployment
