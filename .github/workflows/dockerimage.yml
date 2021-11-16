@@ -26,6 +26,11 @@ jobs:
       run: docker login -u="${{ secrets.DOCKERHUB_USERNAME }}" -p="${{ secrets.DOCKERHUB_PASSWORD }}"
     - name: Pushing Docker Image to DockerHub
       run: docker push ${{ secrets.DOCKERHUB_USERNAME }}/myimage
+    - name: use the upload artifact
+      uses: actions/upload-artifact@v2
+      with:
+        name: myartifact
+        path: ${{ github.workspace }}
     - name: Creating Object
       run: kubectl apply -f deployment.yml
     - name: Checking Deployment
@@ -36,11 +41,3 @@ jobs:
       run: kubectl apply -f service.yml
     - name: Node service created
       run: kubectl get svc
-    - name: use the upload artifact
-      uses: actions/upload-artifact@v2
-      with:
-        name: myartifact
-        path: ${{ github.workspace }}
-
-
-    
