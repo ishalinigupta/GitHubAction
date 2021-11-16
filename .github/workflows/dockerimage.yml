@@ -30,6 +30,17 @@ jobs:
       run: kubectl apply -f deployment.yml
     - name: Checking Deployment
       run: kubectl get deployment
+    - name: Getting Pods
+      run: kubectl get pods
+    - name: Creating Service
+      run: kubectl apply -f service.yml
+    - name: Node service created
+      run: kubectl get svc
+    - name: use the upload artifact
+      uses: actions/upload-artifact@v2
+      with:
+        name: myartifact
+        path: ${{ github.workspace }}
 
 
     
